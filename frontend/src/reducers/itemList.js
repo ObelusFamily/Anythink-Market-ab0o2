@@ -43,7 +43,7 @@ const reducer = (state = {}, action) => {
         ...state,
         items: action.payload.items,
         itemsCount: action.payload.itemsCount,
-      }
+      };
     case APPLY_TAG_FILTER:
       return {
         ...state,

@@ -20,8 +20,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onSearchInput: (payload) =>
-    dispatch({ type: APPLY_TITLE_FILTER, payload }),
+  onSearchInput: (payload) => dispatch({ type: APPLY_TITLE_FILTER, payload }),
   onClickTag: (tag, pager, payload) =>
     dispatch({ type: APPLY_TAG_FILTER, tag, pager, payload }),
   onLoad: (tab, pager, payload) =>
@@ -48,9 +47,13 @@ class Home extends React.Component {
   render() {
     return (
       <div className="home-page">
-        <Banner onInputChange={(title) => 
-          this.props.onSearchInput(title.length > 2 ? agent.Items.byTitle(title) : agent.Items.all())
-        }/>
+        <Banner
+          onInputChange={(title) =>
+            this.props.onSearchInput(
+              title.length > 2 ? agent.Items.byTitle(title) : agent.Items.all()
+            )
+          }
+        />
 
         <div className="container page">
           <Tags tags={this.props.tags} onClickTag={this.props.onClickTag} />
