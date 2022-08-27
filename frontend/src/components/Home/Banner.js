@@ -6,7 +6,7 @@ const Banner = ({ onInputChange }) => {
 
   useEffect(() => {
     onInputChange(search);
-  }, [search]);
+  }, [search, onInputChange]);
 
   return (
     <div className="banner text-white">
