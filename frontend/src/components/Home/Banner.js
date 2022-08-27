@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import logo from "../../imgs/logo.png";
 
-const Banner = ({onInputChange}) => {
+const Banner = ({ onInputChange }) => {
   const [search, setSearch] = useState("");
 
   useEffect(() => {
-    if (search.length > 2) onInputChange(search);
+    onInputChange(search);
   }, [search]);
 
   return (
@@ -15,6 +15,7 @@ const Banner = ({onInputChange}) => {
         <div>
           <span id="get-part">A place to get</span>
           <input id="search-box"
+            type="search"
             value={search}
             onChange={e => setSearch(e.target.value)}
           />

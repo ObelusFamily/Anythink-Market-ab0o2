@@ -7,6 +7,7 @@ import { connect } from "react-redux";
 import {
   HOME_PAGE_LOADED,
   HOME_PAGE_UNLOADED,
+  APPLY_TITLE_FILTER,
   APPLY_TAG_FILTER,
 } from "../../constants/actionTypes";
 
@@ -19,6 +20,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
+  onSearchInput: (payload) =>
+    dispatch({ type: APPLY_TITLE_FILTER, payload }),
   onClickTag: (tag, pager, payload) =>
     dispatch({ type: APPLY_TAG_FILTER, tag, pager, payload }),
   onLoad: (tab, pager, payload) =>
@@ -45,7 +48,9 @@ class Home extends React.Component {
   render() {
     return (
       <div className="home-page">
-        <Banner />
+        <Banner onInputChange={(title) => 
+          this.props.onSearchInput(title.length > 2 ? agent.Items.byTitle(title) : agent.Items.all())
+        }/>
 
         <div className="container page">
           <Tags tags={this.props.tags} onClickTag={this.props.onClickTag} />
