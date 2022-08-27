@@ -1,13 +1,23 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import logo from "../../imgs/logo.png";
 
-const Banner = () => {
+const Banner = ({onInputChange}) => {
+  const [search, setSearch] = useState("");
+
+  useEffect(() => {
+    if (search.length > 2) onInputChange(search);
+  }, [search]);
+
   return (
     <div className="banner text-white">
       <div className="container p-4 text-center">
         <img src={logo} alt="banner" />
         <div>
           <span id="get-part">A place to get</span>
+          <input id="search-box"
+            value={search}
+            onChange={e => setSearch(e.target.value)}
+          />
           <span> the cool stuff.</span>
         </div>
       </div>
