@@ -38,11 +38,11 @@ const reducer = (state = {}, action) => {
         currentPage: action.page,
       };
     case APPLY_TITLE_FILTER:
-      console.log(action);
       return {
         ...state,
         items: action.payload.items,
         itemsCount: action.payload.itemsCount,
+        search: action.search,
       };
     case APPLY_TAG_FILTER:
       return {

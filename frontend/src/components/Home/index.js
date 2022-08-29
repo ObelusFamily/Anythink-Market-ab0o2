@@ -2,6 +2,7 @@ import Banner from "./Banner";
 import MainView from "./MainView";
 import React from "react";
 import Tags from "./Tags";
+import Empty from "./Empty";
 import agent from "../../agent";
 import { connect } from "react-redux";
 import {
@@ -17,10 +18,13 @@ const mapStateToProps = (state) => ({
   ...state.home,
   appName: state.common.appName,
   token: state.common.token,
+  search: state.itemList.search,
+  itemsCount: state.itemList.itemsCount,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onSearchInput: (payload) => dispatch({ type: APPLY_TITLE_FILTER, payload }),
+  onSearchInput: (search, payload) =>
+    dispatch({ type: APPLY_TITLE_FILTER, search, payload }),
   onClickTag: (tag, pager, payload) =>
     dispatch({ type: APPLY_TAG_FILTER, tag, pager, payload }),
   onLoad: (tab, pager, payload) =>
@@ -29,6 +33,11 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 class Home extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleSearchInputChange = this.handleSearchInputChange.bind(this);
+  }
+
   componentWillMount() {
     const tab = "all";
     const itemsPromise = agent.Items.all;
@@ -44,19 +53,26 @@ class Home extends React.Component {
     this.props.onUnload();
   }
 
+  handleSearchInputChange(e) {
+    const title = e.target.value;
+    this.props.onSearchInput(
+      title,
+      title.length > 2 ? agent.Items.byTitle(title) : agent.Items.all()
+    );
+  }
+
   render() {
+    console.log(this.props.search);
     return (
       <div className="home-page">
         <Banner
-          onInputChange={(title) =>
-            this.props.onSearchInput(
-              title.length > 2 ? agent.Items.byTitle(title) : agent.Items.all()
-            )
-          }
+          inputValue={this.props.search || ""}
+          onInputChange={this.handleSearchInputChange}
         />
 
         <div className="container page">
           <Tags tags={this.props.tags} onClickTag={this.props.onClickTag} />
+          {!this.props.itemsCount && <Empty title={this.props.search} />}
           <MainView />
         </div>
       </div>
