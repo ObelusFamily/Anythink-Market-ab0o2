@@ -62,7 +62,6 @@ class Home extends React.Component {
   }
 
   render() {
-    console.log(this.props.search);
     return (
       <div className="home-page">
         <Banner
@@ -72,7 +71,7 @@ class Home extends React.Component {
 
         <div className="container page">
           <Tags tags={this.props.tags} onClickTag={this.props.onClickTag} />
-          {!this.props.itemsCount && <Empty title={this.props.search} />}
+          {!this.props.itemsCount && this.props.search && <Empty title={this.props.search} />}
           <MainView />
         </div>
       </div>
