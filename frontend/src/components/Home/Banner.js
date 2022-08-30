@@ -9,8 +9,8 @@ const Banner = ({ inputValue, onInputChange }) => {
       <div className="container p-4 text-center">
         <img src={logo} alt="banner" />
         <div className="form-inline">
-          <span id="get-part">
-            A place to <span onClick={() => setHidden(false)}>get</span>
+          <span id="get-part" onClick={() => setHidden(false)}>
+            A place to get{" "}
           </span>
           {hidden ? (
             <pre> </pre>
